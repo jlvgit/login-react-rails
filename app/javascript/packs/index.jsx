@@ -45,9 +45,8 @@ class Home extends Component {
 
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
+ReactDOM.render(
     <Home/>,
     document.body.appendChild(document.createElement('div')),
   )
-})
+

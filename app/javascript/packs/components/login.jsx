@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const Login = (props) => {
+class Login extends Component {
 
-    const handleLogin = (e) => {
+    handleSubmit = (e) => {
+        console.log('submitted')
         e.preventDefault()
         const userInfo = {
             user: {
@@ -11,41 +12,48 @@ const Login = (props) => {
             }
         }
 
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:3000/users/sign_in',
-            dataType: 'json',
-            data: userInfo,
-            error: function (error) {
-                console.log(error)
+        fetch("http://localhost:3000/sessions/new", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(userInfo),
+            })
+        .then(
+            (result) => {
+                console.log(result)
+                this.props.changePage('show')
+                this.props.updateCurrentUser(result.username)
             },
-            success: function (res) {
-                console.log(res)
-                props.changePage('edit')
-                props.updateCurrentUser(res.username)
-         },
-        })
+            (error) => {
+                console.log(error)
+            }
+        )
+
     }
 
-    return (
-        <form>
-                <div className="field">
-                    <label>Username</label>
-                    <input type="text"/>
-                </div>  
-
-                <div className="field">
-                    <label>Password</label>
-                    <input type="password"/>
-                </div>  
-
-                <div className="field">
-                    <button onClick={() => {handleLogin(event)}}>Submit</button>
-                </div>  
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                    <div className="field">
+                        <label>Username</label>
+                        <input type="text" id='username'/>
+                    </div>  
+    
+                    <div className="field">
+                        <label>Password</label>
+                        <input type="password" id='password'/>
+                    </div>  
+    
+                    <div className="field">
+                        <button type="submit">Submit</button>
+                    </div>  
                 
-                <div>Don't have an account? <button onClick={props.changePage('signup')}>Sign Up!</button></div>
-        </form>
-    )
+                    <div>Don't have an account? <button onClick={() => {this.props.changePage('signup')}}>Sign Up!</button></div>
+            </form>
+        )
+
+    }
 
 }
 
