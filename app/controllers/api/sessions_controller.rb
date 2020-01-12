@@ -6,7 +6,7 @@ module API
         def create
             user = User.find_by_username(params[:username])
             if user && user.authenticate(params[:password])
-                user.logincount ||= 1
+                user.logincount ||= 0
                 session[:user_id] = user.id
                 user.update_attribute(:lastlogin, Time.now)
                 user.update_attribute(:logincount, user.logincount+1)
