@@ -4,8 +4,6 @@ import Axios from 'axios'
 class Login extends Component {
 
     handleSubmit = (e) => {
-        console.log('submitted')
-
         const csrfToken = document.querySelector('[name="csrf-token"]').content;
         Axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
 

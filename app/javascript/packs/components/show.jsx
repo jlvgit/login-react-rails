@@ -12,7 +12,6 @@ const Show = (props) => {
             })
         .then(
             (result) => {
-                console.log(result)
                 if (result.data.status === 'deleted') {
                     props.updateCurrentUser('')
                     props.changePage('login')
