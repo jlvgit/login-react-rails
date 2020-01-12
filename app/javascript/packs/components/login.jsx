@@ -10,7 +10,7 @@ class Login extends Component {
         e.preventDefault()
 
         Axios.post("http://localhost:3000/api/sessions", {
-                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
                 password: document.getElementById('password').value,
                 authenticity: csrfToken,
                 headers: {
@@ -19,7 +19,7 @@ class Login extends Component {
             })
         .then(
             (result) => {
-                if (result.data.username) {
+                if (result.data.email) {
                     this.props.changePage('show')
                     this.props.updateCurrentUser(result.data)
                 } else if (result.data.status === 'error') {
@@ -40,8 +40,8 @@ class Login extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                     <div className="field">
-                        <label>Username</label>
-                        <input type="text" id='username'/>
+                        <label>Email</label>
+                        <input type="email" id='email'/>
                     </div>  
     
                     <div className="field">

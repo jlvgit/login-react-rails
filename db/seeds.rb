@@ -32,7 +32,7 @@ fakenames = [
 1.upto(10) do |i|
     name = fakenames[i].split(' ')
     User.create(
-        :username              => "user#{i}",
+        :email                 => "#{name[0]}@myhappyplace.com",
         :password              => "pass#{i}",
         :password_confirmation => "pass#{i}",
         :firstname             => name[0],

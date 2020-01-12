@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_01_11_174638) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "username"
+    t.string "email"
     t.string "password_digest"
     t.string "firstname"
     t.string "lastname"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_174638) do
     t.integer "logincount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["username"], name: "index_users_on_username", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

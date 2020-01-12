@@ -25,7 +25,7 @@ const Show = (props) => {
 
     return (
         <div>
-            <p><strong>Username:</strong>{ props.user.username }</p>
+            <p><strong>Email:</strong>{ props.user.email }</p>
             <p><strong>Firstname:</strong>{ props.user.firstname }</p>
             <p><strong>Lastname:</strong>{ props.user.lastname }</p>
             <p><strong>Lastlogin:</strong>{ props.user.lastlogin }</p>

@@ -11,7 +11,7 @@ class Signup extends Component {
 
         Axios.post("http://localhost:3000/api/users", {
                 user: {
-                    username: document.getElementById('username').value,
+                    email: document.getElementById('email').value,
                     password: document.getElementById('password').value,
                     password_confirmation: document.getElementById('password_confirmation').value,
                     firstname:document.getElementById('firstname').value,
@@ -32,7 +32,7 @@ class Signup extends Component {
                 }
             },
             (error) => {
-                this.props.showErrorMessage(error)
+                console.log(error)
             }
         )
 
@@ -42,8 +42,8 @@ class Signup extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                     <div>
-                        <label>Username</label>
-                        <input type='text' id='username'></input>
+                        <label>Email</label>
+                        <input type='email' id='email'></input>
                     </div>
     
                     <div>

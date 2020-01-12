@@ -12,7 +12,7 @@ module API
         private
        
         def user_params
-          params.require(:user).permit(:username, :password, :password_confirmation, :firstname, :lastname, :lastlogin, :logincount)
+          params.require(:user).permit(:email, :password, :password_confirmation, :firstname, :lastname, :lastlogin, :logincount)
         end
     end
 end
