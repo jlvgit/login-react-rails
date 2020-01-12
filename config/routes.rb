@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   resources :users
 
+  namespace :api, defaults: { format: 'json' } do
+    resources :sessions, only: [:new, :create, :destroy]
+    resources :users, only: [:create]
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
   
   get 'signup', to: 'users#new', as: 'signup'

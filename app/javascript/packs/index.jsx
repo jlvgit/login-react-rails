@@ -10,14 +10,14 @@ import Show from './components/show'
 class Home extends Component {
   state = {
     page:'login',
-    currentUser: ''
+    currentUser: '',
+    errorMessage: ''
   }
 
   changePage = (newPage) => {
     this.setState({
       page: newPage
-     }, () => {console.log(this.state.page)})
-    
+     })
   }
 
   updateCurrentUser = (newUser) => {
@@ -26,21 +26,29 @@ class Home extends Component {
      })
   }
 
+  updateErrorMessage = (message) => {
+    this.setState({
+      errorMessage: message
+     })
+  }
+
   getPage = () => {
     switch(this.state.page) {
       case 'login':
-       return <Login changePage={this.changePage} updateCurrentUser={this.updateCurrentUser}/>
+       return <Login changePage={this.changePage} updateCurrentUser={this.updateCurrentUser} showErrorMessage={this.updateErrorMessage}/>
       case 'signup':
-       return <Signup changePage={this.changePage}/>
+       return <Signup changePage={this.changePage} updateCurrentUser={this.updateCurrentUser} showErrorMessage={this.updateErrorMessage}/>
       case 'show':
-       return <Show changePage={this.changePage}/>
+       return <Show changePage={this.changePage} updateCurrentUser={this.updateCurrentUser} user={this.state.currentUser}/>
      }
   }
 
   render(){
-    let page = this.getPage()
     return(
-     <div>{page}</div>
+    <div>
+      <strong className='error' >{this.state.errorMessage}</strong>
+      <div>{this.getPage()}</div>
+     </div>
     )
   }
 

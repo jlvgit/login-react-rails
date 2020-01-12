@@ -11,7 +11,7 @@ class Login extends Component {
 
         e.preventDefault()
 
-        Axios.post("http://localhost:3000/sessions", {
+        Axios.post("http://localhost:3000/api/sessions", {
                 username: document.getElementById('username').value,
                 password: document.getElementById('password').value,
                 authenticity: csrfToken,
@@ -21,17 +21,21 @@ class Login extends Component {
             })
         .then(
             (result) => {
-                console.log(result)
-                if (!result.data.includes('invalid')) {
+                if (result.data.username) {
                     this.props.changePage('show')
-                    this.props.updateCurrentUser(result.username)
+                    this.props.updateCurrentUser(result.data)
+                } else if (result.data.status === 'error') {
+                    this.props.showErrorMessage(result.data.message)
                 }
             },
             (error) => {
-                console.log(error)
+                this.props.showErrorMessage(error)
             }
         )
+    }
 
+    signup = () => {
+        this.props.changePage('signup')
     }
 
     render() {
@@ -51,7 +55,7 @@ class Login extends Component {
                         <button type="submit">Submit</button>
                     </div>  
                 
-                    <div>Don't have an account? <button onClick={() => {this.props.changePage('signup')}}>Sign Up!</button></div>
+                    <div>Don't have an account? <button onClick={this.signup}>Sign Up!</button></div>
             </form>
         )
 
