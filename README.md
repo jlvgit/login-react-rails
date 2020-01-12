@@ -10,8 +10,9 @@ I used Rails 6.0.2.1 so you will need a similar version
 - git clone repo
 - bundle install
 - update /config/database.yml with your mysql username and password
+- `yarn install`
 - `rails db:create`
 - `rails db:migrate`
 - `rails db:seed` if you want some fake users
-- rails start
+- `rails start`
 - go to `http://localhost:3000`
