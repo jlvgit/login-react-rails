@@ -16,7 +16,8 @@ class Home extends Component {
   changePage = (newPage) => {
     this.setState({
       page: newPage
-     })
+     }, () => {console.log(this.state.page)})
+    
   }
 
   updateCurrentUser = (newUser) => {

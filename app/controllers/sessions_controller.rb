@@ -9,7 +9,11 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       user.update_attribute(:lastlogin, Time.now)
       user.update_attribute(:logincount, user.logincount+1)
-      redirect_to action:"show", controller:"users", id: user.id, notice: "Logged in!"
+      puts user
+      respond_to do |format|
+        format.html { redirect_to action:"show", controller:"users", id: user.id, notice: "Logged in!" }
+        format.json { render :json }
+      end
     else
       flash.now[:alert] = "Email or password is invalid"
       render "new"

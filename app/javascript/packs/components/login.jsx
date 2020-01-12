@@ -1,29 +1,31 @@
 import React, { Component } from 'react'
+import Axios from 'axios'
 
 class Login extends Component {
 
     handleSubmit = (e) => {
         console.log('submitted')
-        e.preventDefault()
-        const userInfo = {
-            user: {
-                email: document.getElementById('username').value,
-                password: document.getElementById('password').value
-            }
-        }
 
-        fetch("http://localhost:3000/sessions/new", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(userInfo),
+        const csrfToken = document.querySelector('[name="csrf-token"]').content;
+        Axios.defaults.headers.common['X-CSRF-Token'] = csrfToken;
+
+        e.preventDefault()
+
+        Axios.post("http://localhost:3000/sessions", {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value,
+                authenticity: csrfToken,
+                headers: {
+                    'Content-Type': 'application/json',
+                  }
             })
         .then(
             (result) => {
                 console.log(result)
-                this.props.changePage('show')
-                this.props.updateCurrentUser(result.username)
+                if (!result.data.includes('invalid')) {
+                    this.props.changePage('show')
+                    this.props.updateCurrentUser(result.username)
+                }
             },
             (error) => {
                 console.log(error)
